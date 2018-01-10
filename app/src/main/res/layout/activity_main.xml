@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.pedro.intenciones.MainActivity">
+
+
+    <Button
+        android:id="@+id/IDbtn01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="pgWeb"
+        android:text="Abrir página Web"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/IDbtn02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="llamadaTelefonoCALL"
+        android:text="Llamada de teléfono ACTION_CALL"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/IDbtn03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="googleMaps"
+        android:text="GoogleMaps"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/IDbtn04"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="tomarFoto"
+        android:text="Tomar foto"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/IDbtn05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="mandarCorreo"
+        android:text="Mandar Correo"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/IDbtn06"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="llamadaTelefonoDial"
+        android:text="Llamada de teléfono ACTION_DIAL"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/IDbtn07"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="streetView"
+        android:text="Street View"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/IDbtn08"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="webSearch"
+        android:text="Web Search"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/IDbtn09"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="actionCall2"
+        android:text="actionCall2"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
