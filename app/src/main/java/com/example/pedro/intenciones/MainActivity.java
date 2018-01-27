@@ -1,14 +1,25 @@
 package com.example.pedro.intenciones;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int SOLICITUD_PERMISO_CALL_PHONE = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +79,59 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("MissingPermission")
+
     public void actionCall2(View view) {
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE)
+                == PackageManager.PERMISSION_GRANTED) {
+            //si tenemos el permiso ejecutamos
+            hacerLLamada2();
+        } else {
+            solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso" +
+                            " no puedo hacer llamadas.",
+                    SOLICITUD_PERMISO_CALL_PHONE, this);
+        }
+    }
+
+    public void solicitarPermiso(final String permiso, String justificacion, final int request_code, final MainActivity actividad) {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad, permiso)) {
+            new AlertDialog.Builder(actividad)
+                    .setTitle("Solicitud de permiso")
+                    .setMessage(justificacion)
+                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ActivityCompat.requestPermissions(actividad, new String[]{permiso}, request_code);
+                        }
+                    })
+                    .show();
+        } else {
+            ActivityCompat.requestPermissions(actividad, new String[]{permiso}, request_code);
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == SOLICITUD_PERMISO_CALL_PHONE) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                hacerLLamada2();
+            } else {
+                Toast.makeText(this, "permiso de llamada no permitido", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    public void hacerLLamada2() {
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel:620910311"));
         startActivity(intent);
+
     }
 
 
