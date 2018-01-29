@@ -82,12 +82,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void actionCall2(View view) {
 
+        //#####permisos para Marshmallow######
+        //primer if compueba si el permiso es true
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CALL_PHONE)
                 == PackageManager.PERMISSION_GRANTED) {
             //si tenemos el permiso ejecutamos
             hacerLLamada2();
         } else {
+            //Si no tenemos el permiso se solicita. Primero se informa al usuario con un AlertDialog
+            //justificando el motivo del permiso
             solicitarPermiso(Manifest.permission.CALL_PHONE, "Sin el permiso" +
                             " no puedo hacer llamadas.",
                     SOLICITUD_PERMISO_CALL_PHONE, this);
@@ -96,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void solicitarPermiso(final String permiso, String justificacion, final int request_code, final MainActivity actividad) {
 
+        //si el permiso no lo tenemos y se DEBERIA PEDIR...
         if (ActivityCompat.shouldShowRequestPermissionRationale(actividad, permiso)) {
             new AlertDialog.Builder(actividad)
                     .setTitle("Solicitud de permiso")
@@ -103,16 +108,20 @@ public class MainActivity extends AppCompatActivity {
                     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            //Tras el OK en el AlertDialog informativo abre cuadro de dialogo
+                            //solicitando permiso
                             ActivityCompat.requestPermissions(actividad, new String[]{permiso}, request_code);
                         }
                     })
                     .show();
         } else {
+            //si no necesitamos informar tambien se abre cuadro solicitando directamente permiso
             ActivityCompat.requestPermissions(actividad, new String[]{permiso}, request_code);
         }
     }
 
 
+    //onRequestPermissionsResult analiza la respuesta y asigna o no el permiso
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
